@@ -1,15 +1,49 @@
-import React,{createContext, useContext, useState} from 'react';
+// src/contexts/ContextProvider.jsx
+import { createContext, useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 
 const StateContext = createContext();
 
 const initialState = {
-    chat: false,
-    cart: false,
-    userProfile:false,
-    notification:false,
-}
+  chat: false,
+  cart: false,
+  userProfile: false,
+  notification: false,
+};
 
-export const ContextProvider =({children}) => {
-    const [activeMenu, setActiveMenu] = useState(true);
-    
-}
+export const ContextProvider = ({ children }) => {
+  const [screenSize, setScreenSize] = useState(undefined);
+  const [currentColor, setCurrentColor] = useState('#03C9D7');
+  const [currentMode, setCurrentMode] = useState('Light');
+  const [themeSettings, setThemeSettings] = useState(false);
+  const [activeMenu, setActiveMenu] = useState(true);
+  const [isClicked, setIsClicked] = useState(initialState);
+
+  const setMode = (e) => {
+    setCurrentMode(e.target.value);
+    localStorage.setItem('themeMode', e.target.value);
+  };
+
+  const setColor = (color) => {
+    setCurrentColor(color);
+    localStorage.setItem('colorMode', color);
+  };
+
+  const handleClick = (clicked) => setIsClicked({ ...initialState, [clicked]: true });
+  ContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+  return (
+    <StateContext.Provider value={{
+      currentColor, currentMode, activeMenu, setActiveMenu, screenSize,
+      setScreenSize, handleClick, isClicked, initialState, setIsClicked,
+      setCurrentColor, setCurrentMode, setMode, setColor, themeSettings, setThemeSettings
+    }}>
+      {children}
+    </StateContext.Provider>
+  );
+};
+
+
+export const useStateContext = () => useContext(StateContext);

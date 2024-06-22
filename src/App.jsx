@@ -1,4 +1,3 @@
-import React from 'react'
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { FiSettings } from 'react-icons/fi'
@@ -9,8 +8,11 @@ import {
   Ecommerce, Orders, Calendar, Employees, Stacked, Pyramid, Customers, Kanban, Line, Area, Bar, Pie, Financial, ColorPicker, ColorMapping, Editor
 } from './pages'
 
+import { useStateContext } from './contexts/ContextProvider'
+
 const App = () => {
-  const activeMenu = true;
+  const { activeMenu } = useStateContext();
+
   return (
     <div>
       <BrowserRouter>
@@ -22,18 +24,14 @@ const App = () => {
               </button>
             </TooltipComponent>
           </div>
-          {activeMenu ? (
-            <div className='w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white'>
-              <Sidebar />
-            </div>
-          ) : (
-            <div className="w-0 dark:bg-secondary-dark-bg">
-              <Sidebar />
-            </div>
-          )}
-          <div className={activeMenu
-            ? 'dark:bg-main-dark-bg bg-main-bg min-h-screen md:ml-72 w-full'
-            : 'bg-main-bg dark:bg-main-dark-bg w-full min-h-screen flex-2'}>
+          <div className={`w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white transition-all duration-300 ease-in-out ${
+            activeMenu ? 'translate-x-0' : '-translate-x-full'
+          }`}>
+            <Sidebar />
+          </div>
+          <div className={`dark:bg-main-dark-bg bg-main-bg min-h-screen w-full transition-all duration-300 ease-in-out ${
+            activeMenu ? 'md:ml-72' : 'flex-2'
+          }`}>
             <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
               <Navbar />
             </div>
