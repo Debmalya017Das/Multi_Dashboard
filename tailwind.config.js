@@ -43,7 +43,7 @@ const config = {
         590: '590px',
       },
       backgroundImage: {
-        'hero-pattern': "url('https://demos.wrappixel.com/premium-admin-templates/react/flexy-react/main/static/media/welcome-bg-2x-svg.25338f53.svg')",
+        'hero-pattern': "url('https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT1QRsug_LcP9XLtJCv1olQs6JXcNt-BZ4bSIA4xp76TfSYVsSg')",
       },
     },
   },
